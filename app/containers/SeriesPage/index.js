@@ -1,5 +1,5 @@
 /*
- * HomePage
+ * SeriesPage
  *
  * This is the first thing users see of our App, at the '/' route
  *
@@ -10,14 +10,12 @@
  */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export default class SeriesPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <h1>
-        <FormattedMessage {...messages.header} />
+        Hello these are the Series
       </h1>
     );
   }
