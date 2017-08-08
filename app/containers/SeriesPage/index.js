@@ -1,22 +1,38 @@
 /*
+ *
  * SeriesPage
  *
- * This is the first thing users see of our App, at the '/' route
- *
- * NOTE: while this component should technically be a stateless functional
- * component (SFC), hot reloading does not currently support SFCs. If hot
- * reloading is not a necessity for you then you can refactor it and remove
- * the linting exception.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
+import makeSelectSeries from './selectors';
 
-export default class SeriesPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class SeriesPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <h1>
-        Hello these are the Series
-      </h1>
+      <div>
+        {this.props.series.length}
+      </div>
     );
   }
 }
+
+SeriesPage.propTypes = {
+  series: PropTypes.object,
+  loading: PropTypes.bool,
+};
+
+const mapStateToProps = createSelector(
+  makeSelectSeries(),
+  (series) => ({ series })
+);
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SeriesPage);
