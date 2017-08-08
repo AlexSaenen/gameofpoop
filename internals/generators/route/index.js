@@ -56,7 +56,6 @@ module.exports = {
   }],
 
   // Add the route to the routes.js file above the error route
-  // TODO smarter route adding
   actions: (data) => {
     const actions = [];
     if (reducerExists(data.component)) {
