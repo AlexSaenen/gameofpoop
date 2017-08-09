@@ -2,7 +2,8 @@
  * Gets the series on the server
  */
 
-import { take, call, put, select, cancel, takeLatest } from 'redux-saga/effects';
+import { take, call, put, cancel, takeLatest } from 'redux-saga/effects';
+import { LOCATION_CHANGE } from 'react-router-redux';
 import { LOAD_SERIES } from 'containers/SeriesPage/constants';
 import { seriesLoaded, seriesLoadingError } from 'containers/SeriesPage/actions';
 
@@ -12,7 +13,7 @@ import request from 'utils/request';
  * Server series request/response handler
  */
 export function* getSeries() {
-  const requestURL = 'here call api url to load series';
+  const requestURL = 'http://localhost:3000/api/';
 
   try {
     // Call our request helper (see 'utils/request')
@@ -23,7 +24,21 @@ export function* getSeries() {
   }
 }
 
+/**
+ * Root saga manages watcher lifecycle
+ */
+export function* seriesData() {
+  // Watches for LOAD_SERIES actions and calls getSeries when one comes in.
+  // By using `takeLatest` only the result of the latest API call is applied.
+  // It returns task descriptor (just like fork) so we can continue execution
+  const watcher = yield takeLatest(LOAD_SERIES, getSeries);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
 // All sagas to be loaded
 export default [
-  getSeries,
+  seriesData,
 ];

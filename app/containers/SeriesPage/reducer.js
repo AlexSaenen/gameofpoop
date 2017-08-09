@@ -22,9 +22,9 @@ function seriesPageReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_SERIES:
       return state
-        .set('loading', true)
-        .set('error', false)
-        .set('series', DEFAULT_SERIES);
+      .set('loading', true)
+      .set('error', false)
+      .set('series', DEFAULT_SERIES);
     case LOAD_SERIES_SUCCESS:
       return state
         .set('loading', false)
