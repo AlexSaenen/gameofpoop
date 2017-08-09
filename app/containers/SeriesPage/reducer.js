@@ -4,16 +4,15 @@
  *
  */
 
-import { fromJS } from 'immutable';
+import { fromJS, List } from 'immutable';
 import {
   LOAD_SERIES,
   LOAD_SERIES_SUCCESS,
   LOAD_SERIES_ERROR,
-  DEFAULT_SERIES,
 } from './constants';
 
 const initialState = fromJS({
-  series: DEFAULT_SERIES,
+  series: false,
   loading: false,
   error: false,
 });
@@ -24,7 +23,7 @@ function seriesPageReducer(state = initialState, action) {
       return state
       .set('loading', true)
       .set('error', false)
-      .set('series', DEFAULT_SERIES);
+      .set('series', false);
     case LOAD_SERIES_SUCCESS:
       return state
         .set('loading', false)

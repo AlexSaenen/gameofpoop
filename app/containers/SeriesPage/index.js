@@ -6,53 +6,47 @@
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
-import { makeSelectSeries } from './selectors';
+import { createStructuredSelector } from 'reselect';
+import { makeSelectSeries, makeSelectLoading, makeSelectError } from './selectors';
 import { loadSeries } from './actions';
+import SeriesList from 'components/SeriesList';
 
 export class SeriesPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  constructor(props, context) {
-    super(props, context);
-
-    this.state = {
-      loading: props.loading,
-      series: props.series,
-    };
-  }
-
   componentDidMount() {
     this.props.dispatch(loadSeries());
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      loading: nextProps.loading,
-      series: nextProps.series,
-    });
-  }
-
   render() {
-    const series = this.state.series;
-    const loading = this.state.loading;
+    const { loading, error, series } = this.props;
+    const seriesListProps = {
+      loading,
+      error,
+      series,
+    };
 
     return (
-      <div>
-        <span>{series.length}</span>
-        <span>{String(loading)}</span>
-      </div>
+      <SeriesList {...seriesListProps} />
     );
   }
 }
 
 SeriesPage.propTypes = {
-  series: PropTypes.array.isRequired,
+  series: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.bool,
+  ]),
   loading: PropTypes.bool.isRequired,
+  error: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
   dispatch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = createSelector(
-  makeSelectSeries(),
-  (series) => ({ ...series })
-);
+const mapStateToProps = createStructuredSelector({
+  series: makeSelectSeries(),
+  loading: makeSelectLoading(),
+  error: makeSelectError(),
+});
 
 export default connect(mapStateToProps)(SeriesPage);

@@ -3,18 +3,30 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the seriesPage state domain
  */
-const selectSeries = () => (state) => state.get('series');
+const selectServer = (state) => state.get('server');
 
 /**
  * Default selector used by SeriesPage
  */
 
+ const makeSelectLoading = () => createSelector(
+   selectServer,
+   (serverState) => serverState.get('loading'),
+ );
+
+ const makeSelectError = () => createSelector(
+   selectServer,
+   (serverState) => serverState.get('error'),
+ );
+
 const makeSelectSeries = () => createSelector(
-  selectSeries(),
-  (substate) => substate.toJS()
+  selectServer,
+  (serverState) => serverState.get('series'),
 );
 
 export {
-  selectSeries,
+  selectServer,
   makeSelectSeries,
+  makeSelectError,
+  makeSelectLoading,
 };
