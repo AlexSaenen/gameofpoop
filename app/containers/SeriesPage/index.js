@@ -7,13 +7,13 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import SeriesList from 'components/SeriesList';
 import { makeSelectSeries, makeSelectLoading, makeSelectError } from './selectors';
 import { loadSeries } from './actions';
-import SeriesList from 'components/SeriesList';
 
 export class SeriesPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
-    this.props.dispatch(loadSeries());
+    this.props.onInitialLoad();
   }
 
   render() {
@@ -32,7 +32,7 @@ export class SeriesPage extends React.PureComponent { // eslint-disable-line rea
 
 SeriesPage.propTypes = {
   series: PropTypes.oneOfType([
-    PropTypes.array,
+    PropTypes.object,
     PropTypes.bool,
   ]),
   loading: PropTypes.bool.isRequired,
@@ -40,8 +40,14 @@ SeriesPage.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]),
-  dispatch: PropTypes.func.isRequired,
+  onInitialLoad: PropTypes.func.isRequired,
 };
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    onInitialLoad: () => dispatch(loadSeries()),
+  };
+}
 
 const mapStateToProps = createStructuredSelector({
   series: makeSelectSeries(),
@@ -49,4 +55,4 @@ const mapStateToProps = createStructuredSelector({
   error: makeSelectError(),
 });
 
-export default connect(mapStateToProps)(SeriesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SeriesPage);

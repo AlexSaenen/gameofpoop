@@ -4,7 +4,7 @@
  *
  */
 
-import { fromJS, List } from 'immutable';
+import { fromJS, Map } from 'immutable';
 import {
   LOAD_SERIES,
   LOAD_SERIES_SUCCESS,
@@ -28,7 +28,11 @@ function seriesPageReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('error', false)
-        .set('series', action.payload);
+        .set('series', Map(
+          action.payload.map(
+            (serie) => [serie.path, ({ ...serie })]
+          )
+        ));
     case LOAD_SERIES_ERROR:
       return state
         .set('loading', false)

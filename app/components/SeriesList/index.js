@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import List from 'components/List';
 import ListItem from 'components/ListItem';
 import LoadingIndicator from 'components/LoadingIndicator';
-import SerieListItem from 'containers/SerieListItem';
+import SerieListItem from 'components/SerieListItem';
 
 function SeriesList({ loading, error, series }) {
   if (loading) {
@@ -18,7 +18,7 @@ function SeriesList({ loading, error, series }) {
   }
 
   if (series !== false) {
-    return <List items={series} component={SerieListItem} />;
+    return <List items={series.toArray()} component={SerieListItem} />;
   }
 
   return null;

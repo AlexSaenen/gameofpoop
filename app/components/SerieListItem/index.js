@@ -5,9 +5,9 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
 
 import ListItem from 'components/ListItem';
+import SerieCover from './SerieCover';
 import Wrapper from './Wrapper';
 
 export class SerieListItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -16,7 +16,7 @@ export class SerieListItem extends React.PureComponent { // eslint-disable-line 
 
     const content = (
       <Wrapper>
-        {item.name}
+        <SerieCover src={item.url} alt={item.name} onClick={() => { alert('moving to ' + item.path); }} />
       </Wrapper>
     );
 
@@ -31,4 +31,4 @@ SerieListItem.propTypes = {
   item: React.PropTypes.object,
 };
 
-export default connect()(SerieListItem);
+export default SerieListItem;

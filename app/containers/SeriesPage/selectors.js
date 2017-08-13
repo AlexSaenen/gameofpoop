@@ -9,15 +9,15 @@ const selectServer = (state) => state.get('server');
  * Default selector used by SeriesPage
  */
 
- const makeSelectLoading = () => createSelector(
-   selectServer,
-   (serverState) => serverState.get('loading'),
- );
+const makeSelectLoading = () => createSelector(
+ selectServer,
+ (serverState) => serverState.get('loading'),
+);
 
- const makeSelectError = () => createSelector(
-   selectServer,
-   (serverState) => serverState.get('error'),
- );
+const makeSelectError = () => createSelector(
+ selectServer,
+ (serverState) => serverState.get('error'),
+);
 
 const makeSelectSeries = () => createSelector(
   selectServer,
