@@ -39,6 +39,14 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/seasons',
+      name: 'seasons',
+      getComponent(nextState, cb) {
+        import('containers/SeasonsPage')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Logo from './Logo';
 import NavBar from './NavBar';
 import HeaderLink from './HeaderLink';
+import LogoLink from './LogoLink';
 import messages from './messages';
 
 const HeaderWrapper = styled.div`
@@ -18,7 +19,9 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
   render() {
     return (
       <HeaderWrapper>
-        <Logo src="favicon.ico" alt="Game of Poop" />
+        <LogoLink to="/">
+          <Logo src="favicon.ico" alt="Game of Poop" />
+        </LogoLink>
         <NavBar>
           <HeaderLink to="/seasons">
             <FormattedMessage {...messages.seasons} />
