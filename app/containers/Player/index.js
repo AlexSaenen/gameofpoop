@@ -15,7 +15,7 @@ export class Player extends React.PureComponent { // eslint-disable-line react/p
 
     return (
       <Wrapper>
-        <Video src={`http://localhost:3000/api/${serie}/${season}/${episode}.mp4`} controls></Video>
+        <Video src={`http://localhost:3000/api/${serie}/${season}/${episode}.mkv`} controls></Video>
       </Wrapper>
     );
   }

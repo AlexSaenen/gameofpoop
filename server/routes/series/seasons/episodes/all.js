@@ -53,7 +53,7 @@ module.exports = (req, res) => {
         const episodes = files
         .map((file) => path.join(pathToChosenSeason, file))
         .filter((file) => fs.statSync(file).isFile())
-        .map((file) => path.basename(file).replace('.mp4', ''))
+        .map((file) => path.basename(file).replace('.mkv', ''))
         .map((file) => ({ name: file, path: file.toLowerCase().replace(/ /g, '') }));
 
         return res.status(200).json(episodes);

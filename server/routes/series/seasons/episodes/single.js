@@ -77,7 +77,7 @@ const streamEpisode = (videoPath, req, res) => {
       "Content-Range": "bytes " + start + "-" + end + "/" + total,
       "Accept-Ranges": "bytes",
       "Content-Length": chunksize,
-      "Content-Type": "video/mp4"
+      "Content-Type": "video/x-matroska"
     });
 
     const stream = fs.createReadStream(videoPath, { start, end })
