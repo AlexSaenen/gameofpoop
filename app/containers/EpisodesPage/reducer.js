@@ -1,39 +1,39 @@
 /*
  *
- * SeriesPage reducer
+ * EpisodesPage reducer
  *
  */
 
 import { fromJS, Map } from 'immutable';
 import {
-  LOAD_SEASONS,
-  LOAD_SEASONS_SUCCESS,
-  LOAD_SEASONS_ERROR,
+  LOAD_EPISODES,
+  LOAD_EPISODES_SUCCESS,
+  LOAD_EPISODES_ERROR,
 } from './constants';
 
 const initialState = fromJS({
-  seasons: false,
+  episodes: false,
   loading: false,
   error: false,
 });
 
-function seasonsPageReducer(state = initialState, action) {
+function episodesPageReducer(state = initialState, action) {
   switch (action.type) {
-    case LOAD_SEASONS:
+    case LOAD_EPISODES:
       return state
       .set('loading', true)
       .set('error', false)
-      .set('seasons', false);
-    case LOAD_SEASONS_SUCCESS:
+      .set('episodes', false);
+    case LOAD_EPISODES_SUCCESS:
       return state
         .set('loading', false)
         .set('error', false)
-        .set('seasons', Map(
+        .set('episodes', Map(
           action.payload.map(
-            (season) => [season.path, ({ ...season })]
+            (episode) => [episode.path, ({ ...episode })]
           )
         ));
-    case LOAD_SEASONS_ERROR:
+    case LOAD_EPISODES_ERROR:
       return state
         .set('loading', false)
         .set('error', action.error);
@@ -42,4 +42,4 @@ function seasonsPageReducer(state = initialState, action) {
   }
 }
 
-export default seasonsPageReducer;
+export default episodesPageReducer;

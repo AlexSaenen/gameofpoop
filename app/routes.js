@@ -39,10 +39,52 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/seasons',
+      path: '/:serie',
       name: 'seasons',
       getComponent(nextState, cb) {
-        import('containers/SeasonsPage')
+        const importModules = Promise.all([
+          import('containers/SeasonsPage/reducer'),
+          import('containers/SeasonsPage/sagas'),
+          import('containers/SeasonsPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('serie', reducer.default);
+          injectSagas(sagas.default);
+
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/:serie/:season',
+      name: 'episodes',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/EpisodesPage/reducer'),
+          import('containers/EpisodesPage/sagas'),
+          import('containers/EpisodesPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('season', reducer.default);
+          injectSagas(sagas.default);
+
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/:serie/:season/:episode',
+      name: 'player',
+      getComponent(nextState, cb) {
+        import('containers/Player')
           .then(loadModule(cb))
           .catch(errorLoading);
       },

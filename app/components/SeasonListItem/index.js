@@ -8,16 +8,15 @@ import React from 'react';
 import { withRouter } from 'react-router';
 
 import ListItem from 'components/ListItem';
-import SerieCover from './SerieCover';
 import Wrapper from './Wrapper';
 
-export class SerieListItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class SeasonListItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const item = this.props.item;
 
     const content = (
-      <Wrapper onClick={() => { this.props.router.push(`/${item.path}`); }}>
-        <SerieCover src={item.url} alt={item.name} />
+      <Wrapper onClick={() => { this.props.router.push(`${this.props.location.pathname}/${item.path}`); }}>
+        {item.name}
       </Wrapper>
     );
 
@@ -28,8 +27,8 @@ export class SerieListItem extends React.PureComponent { // eslint-disable-line 
   }
 }
 
-SerieListItem.propTypes = {
+SeasonListItem.propTypes = {
   item: React.PropTypes.object,
 };
 
-export default withRouter(SerieListItem);
+export default withRouter(SeasonListItem);

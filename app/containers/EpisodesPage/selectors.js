@@ -3,30 +3,30 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the seasonsPage state domain
  */
-const selectSerie = (state) => state.get('serie');
+const selectSeason = (state) => state.get('season');
 
 /**
  * Default selector used by SeasonsPage
  */
 
 const makeSelectLoading = () => createSelector(
- selectSerie,
+ selectSeason,
  (serverState) => serverState.get('loading'),
 );
 
 const makeSelectError = () => createSelector(
- selectSerie,
+ selectSeason,
  (serverState) => serverState.get('error'),
 );
 
-const makeSelectSeasons = () => createSelector(
-  selectSerie,
-  (serverState) => serverState.get('seasons'),
+const makeSelectEpisodes = () => createSelector(
+  selectSeason,
+  (serverState) => serverState.get('episodes'),
 );
 
 export {
-  selectSerie,
-  makeSelectSeasons,
+  selectSeason,
+  makeSelectEpisodes,
   makeSelectError,
   makeSelectLoading,
 };

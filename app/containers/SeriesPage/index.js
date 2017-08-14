@@ -7,6 +7,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+
 import SeriesList from 'components/SeriesList';
 import { makeSelectSeries, makeSelectLoading, makeSelectError } from './selectors';
 import { loadSeries } from './actions';
