@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const basePath = path.join(process.cwd(), 'server/tmpData');
+const basePath = path.join(process.cwd(), 'server/database');
 
 const getSeries = () => new Promise((resolve, reject) => {
   fs.readdir(basePath, (err, files) => {
