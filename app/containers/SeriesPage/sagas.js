@@ -13,7 +13,7 @@ import request from 'utils/request';
  * Server series request/response handler
  */
 export function* getSeries() {
-  const requestURL = 'http://localhost:4080/api/';
+  const requestURL = 'http://82.223.82.41:4080/api/';
 
   try {
     // Call our request helper (see 'utils/request')

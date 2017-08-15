@@ -13,7 +13,7 @@ import request from 'utils/request';
  * Server episodes request/response handler
  */
 export function* getEpisodes(action) {
-  const requestURL = `http://localhost:4080/api/${action.loadProps.serie}/${action.loadProps.season}`;
+  const requestURL = `http://82.223.82.41:4080/api/${action.loadProps.serie}/${action.loadProps.season}`;
 
   try {
     // Call our request helper (see 'utils/request')
