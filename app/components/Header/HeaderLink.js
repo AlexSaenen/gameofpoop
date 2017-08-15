@@ -9,13 +9,4 @@ export default styled(Link)`
   cursor: pointer;
   outline: 0;
   font-size: 16px;
-
-  &:visited {
-    color: black;
-  }
-
-  &:active {
-    background: blue;
-    color: white;
-  }
 `;

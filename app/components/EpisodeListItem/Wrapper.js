@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  width: auto;
+  width: 100%;
   height: auto;
   display: flex;
-  margin: 1em auto;
+  padding: 1em;
   align-items: space-between;
 `;
 

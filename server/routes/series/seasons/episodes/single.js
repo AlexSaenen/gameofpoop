@@ -67,44 +67,44 @@ const streamEpisode = (videoPath, req, res) => {
       return res.sendFile(videoPath);
     }
 
-    const positions = range.replace(/bytes=/, "").split("-");
+    const positions = range.replace(/bytes=/, '').split('-');
     const start = parseInt(positions[0], 10);
     const total = stats.size;
-    const end = positions[1] ? parseInt(positions[1], 10) : total - 1;
+    const end = positions[1] !== '' ? parseInt(positions[1], 10) : total - 1;
     const chunksize = (end - start) + 1;
 
     res.writeHead(206, {
-      "Content-Range": "bytes " + start + "-" + end + "/" + total,
-      "Accept-Ranges": "bytes",
-      "Content-Length": chunksize,
-      "Content-Type": "video/x-matroska"
+      'Content-Range': `bytes ${start}-${end}/${total}`,
+      'Accept-Ranges': 'bytes',
+      'Content-Length': chunksize,
+      'Content-Type': 'video/x-matroska',
     });
 
     const stream = fs.createReadStream(videoPath, { start, end })
-      .on("open", () => {
+      .on('open', () => {
         stream.pipe(res);
-      }).on("error", (err) => {
-        res.end(err);
+      })
+      .on('error', (streamErr) => {
+        res.end(streamErr);
       });
   });
 };
 
 module.exports = (req, res) => {
-
   getSeries()
-  .then(series => series.find(serie => serie.path === req.params.serie))
-  .then((chosenSerie) => {
-    return getSeasons(path.join(basePath, chosenSerie.name))
-    .then(seasons => seasons.find(season => season.path === req.params.season))
+  .then((series) => series.find((serie) => serie.path === req.params.serie))
+  .then((chosenSerie) =>
+    getSeasons(path.join(basePath, chosenSerie.name))
+    .then((seasons) => seasons.find((season) => season.path === req.params.season))
     .then((chosenSeason) => {
       const pathToChosenSeason = path.join(path.join(basePath, chosenSerie.name), chosenSeason.name);
       return getEpisodes(pathToChosenSeason)
-      .then(episodes => episodes.find(episode => episode.path === req.params.episode))
+      .then((episodes) => episodes.find((episode) => episode.path === req.params.episode))
       .then((chosenEpisode) => {
         const pathToEpisode = path.join(pathToChosenSeason, chosenEpisode.name);
         streamEpisode(pathToEpisode, req, res);
       });
     })
-  })
-  .catch(err => res.status(500).json({ err }));
+  )
+  .catch((err) => res.status(500).json({ err }));
 };
