@@ -13,7 +13,7 @@ import request from 'utils/request';
  * Server seasons request/response handler
  */
 export function* getSeasons(action) {
-  const requestURL = `http://localhost:3000/api/${action.chosenSerie}`;
+  const requestURL = `http://localhost:4080/api/${action.chosenSerie}`;
 
   try {
     // Call our request helper (see 'utils/request')
