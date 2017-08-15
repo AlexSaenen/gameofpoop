@@ -64,7 +64,7 @@ const streamEpisode = (videoPath, req, res) => {
     const range = req.headers.range;
 
     if (!range) {
-      res.sendFile(videoPath);
+      return res.sendFile(videoPath);
     }
 
     const positions = range.replace(/bytes=/, "").split("-");
